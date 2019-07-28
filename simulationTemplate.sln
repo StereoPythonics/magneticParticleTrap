@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simulationTemplate", "simulationTemplate\simulationTemplate.csproj", "{2C0B7DF3-ACF7-4821-9FA6-E418335C79BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C0B7DF3-ACF7-4821-9FA6-E418335C79BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0B7DF3-ACF7-4821-9FA6-E418335C79BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0B7DF3-ACF7-4821-9FA6-E418335C79BF}.Debug|x64.ActiveCfg = Debug|x64
+		{2C0B7DF3-ACF7-4821-9FA6-E418335C79BF}.Debug|x64.Build.0 = Debug|x64
+		{2C0B7DF3-ACF7-4821-9FA6-E418335C79BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0B7DF3-ACF7-4821-9FA6-E418335C79BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C0B7DF3-ACF7-4821-9FA6-E418335C79BF}.Release|x64.ActiveCfg = Release|x64
+		{2C0B7DF3-ACF7-4821-9FA6-E418335C79BF}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A0F60C48-DB29-4F2B-A98E-57A558CA377B}
+	EndGlobalSection
+EndGlobal
