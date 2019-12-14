@@ -32,15 +32,13 @@ namespace simulationTemplate
             oclc = context;
             randoCal = new Random();
             setupCanvas();
-            generateRandowPositions(6000000);
+            generateRandowPositions(1000000);
 
             blackKernel = oclc.program.CreateKernel("black");
             drawKernel = oclc.program.CreateKernel("draw");
             magKernel = oclc.program.CreateKernel("magnitate");
 
             loadDataOntoCard();
-
-
         }
 
         private void loadDataOntoCard()
@@ -61,7 +59,8 @@ namespace simulationTemplate
             {
                 if (i % 6 == 1) protomolecules[i] *= sourceTemplate.Width;
                 if (i % 6 == 2) protomolecules[i] *= sourceTemplate.Height;
-                if (i % 6 == 3 || i % 6 == 4 || i % 6 == 5) protomolecules[i] = 0;
+                if (i % 6 == 3) protomolecules[i] = 0;
+                if (i % 6 == 4 || i % 6 == 5) protomolecules[i] = (float)(Math.Sin(protomolecules[i]*Math.PI*2)* randoCal.NextDouble() * 0.1);
 
             }
 
@@ -74,7 +73,7 @@ namespace simulationTemplate
             Graphics g = Graphics.FromImage(sourceTemplate);
             g.FillRectangle(Brushes.Black, new Rectangle(0,0,sourceTemplate.Width, sourceTemplate.Height));
             BitmapData bmd = sourceTemplate.LockBits(new Rectangle(0, 0, sourceTemplate.Width, sourceTemplate.Height), ImageLockMode.ReadWrite, sourceTemplate.PixelFormat);
-            canvas = new ComputeImage2D(oclc.Context,ComputeMemoryFlags.CopyHostPointer | ComputeMemoryFlags.ReadWrite, new ComputeImageFormat(ComputeImageChannelOrder.Rgba, ComputeImageChannelType.SignedInt8), sourceTemplate.Width, sourceTemplate.Height, 0, bmd.Scan0);
+            canvas = new ComputeImage2D(oclc.Context,ComputeMemoryFlags.CopyHostPointer | ComputeMemoryFlags.ReadWrite, new ComputeImageFormat(ComputeImageChannelOrder.Rgba, ComputeImageChannelType.UnsignedInt8), sourceTemplate.Width, sourceTemplate.Height, 0, bmd.Scan0);
             sourceTemplate.UnlockBits(bmd);
         }
 

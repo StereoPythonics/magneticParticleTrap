@@ -17,6 +17,22 @@ float3 getPDeriv(float3 p)
 }
 
 
+float3 getPDeriv2(float3 p)
+{
+	float x = p.s0;
+	float y = p.s1;// -960;
+	float z = p.s2;
+
+	float rs = 0.001*rsqrt(x*x + y*y + z*z);
+	float dx = -x*rs*rs*rs;
+	float dy = -y*rs*rs*rs;;
+	float dz = -z*rs*rs*rs;;
+
+	return (float3)(dx,dy,dz);
+}
+
+
+
 __kernel void magnitate(__global float* mols)
 {
 	// mols are x,y,z,vx,vy,vz
@@ -38,22 +54,22 @@ __kernel void magnitate(__global float* mols)
 
 		k1pos = tstep*ivel;
 		k1vel = -tstep*getPDeriv(ipos);
-		//k2pos = tstep*(ivel + 0.5*k1vel);
-		//k2vel = -tstep*getPDeriv(ipos + 0.5*k1pos);
-		//k3pos = tstep*(ivel + 0.5*k2vel);
-		//k3vel = -tstep*getPDeriv(ipos + 0.5*k2pos);
-		//k4pos = tstep*(ivel + k3vel);
-		//k4vel = -tstep*getPDeriv(ipos + k3pos);
+		k2pos = tstep*(ivel + 0.5*k1vel);
+		k2vel = -tstep*getPDeriv(ipos + 0.5*k1pos);
+		k3pos = tstep*(ivel + 0.5*k2vel);
+		k3vel = -tstep*getPDeriv(ipos + 0.5*k2pos);
+		k4pos = tstep*(ivel + k3vel);
+		k4vel = -tstep*getPDeriv(ipos + k3pos);
 
-		ipos += 6*0.1666666*(k1pos);// + 2*k2pos + 2*k3pos + k4pos);
-		ivel += 6*0.1666666*(k1vel);// + 2*k2vel + 2*k3vel + k4vel);
+		ipos += 8*0.1666666*(k1pos + 3*k2pos + 3*k3pos + k4pos);
+		ivel += 20*0.1666666*(k1vel + 3*k2vel + 3*k3vel + k4vel);
     }
 	float hundred = 0.1;
 	mols[x] = ipos.s0;
 	mols[x+1] = ipos.s1;
 	mols[x+2] = ipos.s2;
 	mols[x+3] = ivel.s0;//*0.99999;
-	mols[x+4] = clamp(ivel.s1,-hundred,hundred);//*0.99999;
-	mols[x+5] = clamp(ivel.s2,-hundred,hundred);//*0.99999;
+	mols[x+4] = ivel.s1*0.9992;
+	mols[x+5] = ivel.s2*0.9992;
 
 }

@@ -15,7 +15,7 @@ __kernel void Fade(__read_only image2d_t rimg,__write_only image2d_t wimg)
 __kernel void draw(__global float* things,__write_only image2d_t wimg)
 {
     int x = get_global_id(0)*6;
-	int2 coord = (int2)((int)(things[x+1]),(int)things[x+2]);
+	int2 coord = (int2)((int)((things[x+1]-840)*8),(int)(things[x+2]-270)*2);
 	uint4 col = (uint4)((-50000*things[x+4]),(50000*things[x+5]),(-50000*things[x+5]),255);
     write_imageui(wimg,coord,col);
 }
